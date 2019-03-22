@@ -12,5 +12,11 @@ class Movie extends Model
         'movie_id', 'title', 'description', 'director', 'producer', 'year', 'rt_score'
     ];
 
+    /* Rules to validate data */
+    public $rules = [
+        'movie_id' => 'unique:movies',
+        'title' => 'unique:movies',
+    ];
+
     public $timestamps = false;
 }

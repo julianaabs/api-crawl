@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Character;
 use DB;
 
 class CharacterController extends Controller
@@ -15,20 +16,8 @@ class CharacterController extends Controller
      */
     public function index(Request $request)
     {
-        $client = new \Guzzle\Service\Client('https://ghibliapi.herokuapp.com/people');
-
-        $response = $client->get()->send();
-        $people_data = $response->json();
-
+        
         $people = DB::table('characters')->orderby('characters.name')->get(); 
-
-        //dd($people_data);
-
-        /*foreach($people_data as $p){
-            $insert = Character::create([
-                ''
-            ])
-        }*/
 
         return view('characters', compact('people'));
     }
@@ -51,7 +40,40 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $client = new \Guzzle\Service\Client('https://ghibliapi.herokuapp.com/people');
+
+        $response = $client->get()->send();
+        $people_data = $response->json();
+
+        $people = DB::table('characters')->orderby('characters.name')->get(); 
+
+        foreach($people_data as $p){
+            DB::beginTransaction();
+            $insert = Character::create([
+                'character_id' => $p['id'],
+                'name' => $p['name'],
+                'gender' => $p['gender'],
+                'age' => $p['age'],
+                'eye_color' => $p['eye_color'],
+                'hair_color' => $p['hair_color'],            
+                //'film' => $p['films'],            
+            ]);
+
+            /*if($validator->fails()){
+                return redirect('/home')
+                        ->withErros($validator);
+            }*/
+
+            if($insert){           
+                DB::commit();
+                //dd("commit");
+            }
+            else{
+                DB::rollback();
+            }
+        }
+
+        $people = DB::table('characters')->orderby('characters.name')->get();
     }
 
     /**

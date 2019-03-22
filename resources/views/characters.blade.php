@@ -26,16 +26,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @if(isset($movie_data))
-                            @foreach($movie_data as $m)
+                        @if(isset($people))
+                            @foreach($people as $p)
                             <tr>
-                                <th>{{$m->title}}</th>
-                                <th>{{$m->description}}</th>
-                                <th>{{$m->director}}</th>
-                                <th>{{$m->producer}}</th>
-                                <th>{{$m->release_date}}</th>
-                                <th>{{$m->rt_score}}</th>
-                                <th>{{$m->people}}</th>
+                                <th>{{$p->name}}</th>
+                                <th>{{$p->gender}}</th>
+                                <th>{{$p->age}}</th>
+                                <th>{{$p->eye_color}}</th>
+                                <th>{{$p->hair_color}}</th>
                             </tr>
                             @endforeach
                         @endif
@@ -44,8 +42,4 @@
             </div>
         </div>
     </div>
-@stop
-
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
 @stop

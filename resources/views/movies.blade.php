@@ -24,20 +24,18 @@
                                 <th class="col-md-2">Producer</th>
                                 <th class="col-md-1">Year</th>
                                 <th class="col-md-1">Rotten Tomato Score</th>
-                                <th class="col-md-3">Characters</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @if(isset($movie))
-                            @foreach($movie as $m)
+                        @if(isset($movies))
+                            @foreach($movies as $m)
                             <tr>
                                 <th>{{$m->title}}</th>
                                 <th>{{$m->description}}</th>
                                 <th>{{$m->director}}</th>
                                 <th>{{$m->producer}}</th>
-                                <th>{{$m->release_date}}</th>
+                                <th>{{$m->year}}</th>
                                 <th>{{$m->rt_score}}</th>
-                                <th>{{$m->people}}</th>
                             </tr>
                             @endforeach
                         @endif

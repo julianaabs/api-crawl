@@ -16,34 +16,9 @@ class MovieController extends Controller
      */
     public function index(Request $request)
     {
-        $client = new \Guzzle\Service\Client('https://ghibliapi.herokuapp.com/films');
-
-        $response = $client->get()->send();
-        $movie_data = $response->json();
-
-        foreach($movie_data as $m){
-            DB::beginTransaction();
-            $insert = Movie::create([
-                'movie_id' => $m['id'],
-                'title' => $m['title'],
-                'description' => $m['description'],
-                'director' => $m['director'],
-                'producer' => $m['producer'],
-                'year' => $m['release_date'],
-                'rt_score' => $m['rt_score'],
-            
-            ]);
-            if($insert){
-                DB::commit();
-                //dd("commit");
-            }
-            else{
-                DB::rollback();
-            }
-        }
 
         $movies = DB::table('movies')->orderby('movies.title')->get();
-
+        
         return view('movies', compact('movies'));
     }
 
@@ -65,7 +40,40 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        /** Get the API data */
+        $client = new \Guzzle\Service\Client('https://ghibliapi.herokuapp.com/films');
+        $response = $client->get()->send();
+        /** Store response as JSON */
+        $movie_data = $response->json();
+
+        /** Get all data from Movies table */
+        $movies = DB::table('movies')->orderby('movies.title')->get();
+        foreach($movie_data as $m){
+            DB::beginTransaction();
+            $insert = Movie::create([
+                'movie_id' => $m['id'],
+                'title' => $m['title'],
+                'description' => $m['description'],
+                'director' => $m['director'],
+                'producer' => $m['producer'],
+                'year' => $m['release_date'],
+                'rt_score' => $m['rt_score'],           
+            ]);
+
+            /** Validate the rules to create another object on database */
+            if($validator->fails()){
+                return redirect('/home')
+                        ->withErros($validator);
+            }
+
+            if($insert){           
+                DB::commit();
+            }
+            else{
+                DB::rollback();
+            }
+        }
     }
 
     /**
