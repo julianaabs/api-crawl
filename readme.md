@@ -23,4 +23,4 @@ O sistema atual lista todos os filmes (Nome, descrição, diretor, produtor, ano
 <img src="movie-page.png">
 
 - Página de pessoas
-<img src="characters-page.png">
+<img src="character-page.png">
