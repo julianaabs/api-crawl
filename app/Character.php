@@ -8,6 +8,7 @@ class Character extends Model
 {
     protected $table = 'characters';
 
+    /** Permission to write on database. */
     protected $fillable = [
         'character_id', 'name', 'gender', 'age', 'eye_color', 'hair_color'
     ];
@@ -16,4 +17,6 @@ class Character extends Model
     public $rules = [
         'character_id' => 'unique:characters',
     ];
+
+    public $timestamps = false;
 }

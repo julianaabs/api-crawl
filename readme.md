@@ -20,7 +20,9 @@ Desenvolvimento um web crawler a partir da API do Studio Ghibli com objetivo de 
 O sistema atual lista todos os filmes (Nome, descrição, diretor, produtor, ano e score do Rotten Tomatoes) e personagens (Nome, gênero, idade, cor dos olhos, cor dos cabelos).
 
 - Página de filmes
+api-crawl/public/movies
 <img src="movie-page.png">
 
 - Página de pessoas
+api-crawl/public/characters
 <img src="character-page.png">

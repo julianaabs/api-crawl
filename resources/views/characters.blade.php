@@ -15,7 +15,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr class="bg-primary">
-                                <th colspan="16">List of Movies</th>
+                                <th colspan="16">List of Characters</th>
                             </tr>
                             <tr>
                                 <th class="col-md-2">Name</th>
