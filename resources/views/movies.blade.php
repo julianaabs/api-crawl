@@ -3,11 +3,11 @@
 @section('title', 'Movie Crawler')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Movies</h1>
 @stop
 
 @section('content')
-    <p>Welcome to the Movie Crawler.</p>
+    <p>List of all films.</p>
 
     <div class="content">
             <div class="row">
