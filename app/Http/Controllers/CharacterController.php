@@ -3,18 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class CharacterController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //$this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -23,8 +15,22 @@ class CharacterController extends Controller
      */
     public function index(Request $request)
     {
-        //dd("Hello");
-        return view('characters');
+        $client = new \Guzzle\Service\Client('https://ghibliapi.herokuapp.com/people');
+
+        $response = $client->get()->send();
+        $people_data = $response->json();
+
+        $people = DB::table('characters')->orderby('characters.name')->get(); 
+
+        //dd($people_data);
+
+        /*foreach($people_data as $p){
+            $insert = Character::create([
+                ''
+            ])
+        }*/
+
+        return view('characters', compact('people'));
     }
 
     /**

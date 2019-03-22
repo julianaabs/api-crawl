@@ -3,18 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Movie;
+use DB;
 
 class MovieController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //$this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -23,8 +16,35 @@ class MovieController extends Controller
      */
     public function index(Request $request)
     {
-        //dd("Hello");
-        return view('movies');
+        $client = new \Guzzle\Service\Client('https://ghibliapi.herokuapp.com/films');
+
+        $response = $client->get()->send();
+        $movie_data = $response->json();
+
+        foreach($movie_data as $m){
+            DB::beginTransaction();
+            $insert = Movie::create([
+                'movie_id' => $m['id'],
+                'title' => $m['title'],
+                'description' => $m['description'],
+                'director' => $m['director'],
+                'producer' => $m['producer'],
+                'year' => $m['release_date'],
+                'rt_score' => $m['rt_score'],
+            
+            ]);
+            if($insert){
+                DB::commit();
+                //dd("commit");
+            }
+            else{
+                DB::rollback();
+            }
+        }
+
+        $movies = DB::table('movies')->orderby('movies.title')->get();
+
+        return view('movies', compact('movies'));
     }
 
     /**

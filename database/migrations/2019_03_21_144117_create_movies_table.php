@@ -21,6 +21,7 @@ class CreateMoviesTable extends Migration
             $table->string('director');
             $table->string('producer');
             $table->char('year', 4);
+            $table->char('rt_score', 3);
             //$table->json('people');
             $table->timestamps();
         });

@@ -28,20 +28,26 @@ class HomeController extends Controller
         $client = new \Guzzle\Service\Client('https://ghibliapi.herokuapp.com/films');
 
         $response = $client->get()->send();
+        $movie_data = $response->json();
+
+        foreach($movie_data as $r){
+            
+        }
+        //dd($movie_data);
         
-        dd($response->json()[1]['id']);
+        //dd($response->json()[1]['id']);
 
         return view('/home');
     }
 
-    public function parseFilms(){
+    /*public function parseFilms(Request $request){
 
-        DB:beginTransaction();
-        foreach($response->json() as $r){
+        DB::beginTransaction();
+        foreach($movie_data as $r){
 
         }
 
-    }
+    }*/
 
     /**
      * Show the form for creating a new resource.

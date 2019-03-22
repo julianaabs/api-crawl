@@ -118,26 +118,13 @@ return [
         'SECTIONS',
         [
             'text' => 'Movies',
-            'url'  => 'admin/settings',
-            'icon' => 'user',
+            'url'  => '/movies',
+            'icon' => 'film',
         ],
         [
             'text' => 'Characters',
-            'url'  => 'admin/settings',
-            'icon' => 'lock',
-        ],
-        'LABELS',
-        [
-            'text'       => 'Important',
-            'icon_color' => 'red',
-        ],
-        [
-            'text'       => 'Warning',
-            'icon_color' => 'yellow',
-        ],
-        [
-            'text'       => 'Information',
-            'icon_color' => 'aqua',
+            'url'  => '/characters',
+            'icon' => 'user',
         ],
     ],
 

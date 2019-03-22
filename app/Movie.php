@@ -9,7 +9,7 @@ class Movie extends Model
     protected $table = 'movies';
 
     protected $fillable = [
-        'movie_id', 'title', 'description', 'producer', 'year' 
+        'movie_id', 'title', 'description', 'director', 'producer', 'year', 'rt_score'
     ];
 
     public $timestamps = false;
